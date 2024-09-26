@@ -1,0 +1,24 @@
+name: Test Daily Commit
+
+on:
+  push:         # Executa o workflow quando há um push no repositório
+    branches:
+      - main    # Garanta que está usando a branch principal
+  workflow_dispatch:  # Permite executar manualmente a partir da interface do GitHub Actions
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update README with daily update
+        run: |
+          echo "## Atualização de teste: $(date)" >> README.md
+          git config --local user.email "seu-email@example.com"
+          git config --local user.name "Seu Nome"
+          git add README.md
+          git commit -m "test: testing my script"
+          git push
