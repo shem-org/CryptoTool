@@ -14,8 +14,8 @@ jobs:
         run: echo 'Atualização automática: $(date)' >> README.md
       - name: Commit e Push
         run: |
-          git config --global user.name "SeuNome"
-          git config --global user.email "seuemail@dominio.com"
+          git config --global user.name "felipemacedo1  "
+          git config --global user.email "felipealexandrej@gmail.com"
           git add README.md
           git commit -m "Atualização automática no README.md"
           git push
