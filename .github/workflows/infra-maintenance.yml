@@ -14,12 +14,12 @@ jobs:
 
       - name: Fazer alterações (substitua esta etapa conforme necessário)
         run: |
+          git config --global user.name "felipemacedo1"
+          git config --global user.email "felipealexandrej@gmail.com"
           echo "## Atualização automática: $(date)" >> README.md
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "Atualização automática no README.md"
-
+          
       - name: Push das alterações
         env:
           TOKEN: ${{ secrets.ORG }}
