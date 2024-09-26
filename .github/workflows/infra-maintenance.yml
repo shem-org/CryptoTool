@@ -1,24 +1,27 @@
-name: Test Daily Commit
+name: Commit automático diário
 
 on:
-  push:         # Executa o workflow quando há um push no repositório
-    branches:
-      - main    # Garanta que está usando a branch principal
-  workflow_dispatch:  # Permite executar manualmente a partir da interface do GitHub Actions
+  schedule:
+    - cron: '0 0 * * *' # Este cron job executa diariamente à meia-noite UTC
 
 jobs:
   commit:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
 
-      - name: Update README with daily update
+      - name: Fazer alterações (substitua esta etapa conforme necessário)
         run: |
-          echo "## Atualização de teste: $(date)" >> README.md
-          git config --local user.email "seu-email@example.com"
-          git config --local user.name "Seu Nome"
-          git add README.md
-          git commit -m "test: testing my script"
-          git push
+          echo "Atualização automática" >> auto_update.txt
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Commit automático diário"
+
+      - name: Push das alterações
+        env:
+          TOKEN: ${{ secrets.WORK_TOKEN }}
+        run: |
+          git push https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/<ORGANIZACAO>/<REPOSITORIO>.git HEAD:main
