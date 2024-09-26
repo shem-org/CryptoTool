@@ -14,7 +14,7 @@ jobs:
 
       - name: Fazer alterações no README.md
         run: |
-          echo "## Atualização automática: $(date)" >> README.md
+          echo "Atualização automática: $(date)" >> README.md
 
       - name: Commit e Push das alterações
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -22,4 +22,4 @@ jobs:
           commit_message: "Atualização automática no README.md"
           file_pattern: README.md
           branch: main
-          token: ${{ secrets.WORK_TOKEN }}  # Aqui você refere-se ao seu token configurado
+          token: ${{ secrets.ORG }}
