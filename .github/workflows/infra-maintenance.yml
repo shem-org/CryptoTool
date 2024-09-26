@@ -24,4 +24,5 @@ jobs:
         env:
           TOKEN: ${{ secrets.WORK_TOKEN }}
         run: |
-          git push https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/<ORGANIZACAO>/<REPOSITORIO>.git HEAD:main
+           git remote set-url origin https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/BliShem/CryptoTool.git
+           git push origin HEAD:main
