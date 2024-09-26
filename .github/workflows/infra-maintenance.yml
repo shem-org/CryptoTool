@@ -1,4 +1,4 @@
-name: Commit automático diário
+name: Maintenance
 
 on:
   schedule:
@@ -14,15 +14,15 @@ jobs:
 
       - name: Fazer alterações (substitua esta etapa conforme necessário)
         run: |
-          echo "Atualização automática" >> auto_update.txt
+          echo "## Atualização automática: $(date)" >> README.md
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Commit automático diário"
+          git add README.md
+          git commit -m "Atualização automática no README.md"
 
       - name: Push das alterações
         env:
-          TOKEN: ${{ secrets.WORK_TOKEN }}
+          TOKEN: ${{ secrets.ORG }}
         run: |
-           git remote set-url origin https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/BliShem/CryptoTool.git
-           git push origin HEAD:main
+          git remote set-url origin https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/BliShem/CryptoTool.git
+          git push origin HEAD:main
