@@ -1,6 +1,7 @@
 name: Commit automático simples
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
     #- cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
