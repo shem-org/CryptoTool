@@ -13,7 +13,8 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Fazer alterações no README.md
-        run: echo "## Atualização automática: $(date)" >> README.md
+        run: |
+          echo "## Atualização automática: $(date)" >> README.md
 
       - name: Commit e Push
         run: |
