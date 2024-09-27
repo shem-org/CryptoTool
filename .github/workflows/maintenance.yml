@@ -11,12 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       
       - name: Fazer alterações no README.md
-        run: |
-          CURRENT_DATE=$(date)
-          echo "## Atualização automática: $CURRENT_DATE" >> README.md
+        run: echo "## Atualização automática:" >> README.md
 
       - name: Commit e Push
         run: |
