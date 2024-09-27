@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
-    #- cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
+    # - cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
 
 jobs:
   commit:
@@ -12,16 +12,19 @@ jobs:
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v3
-      
+
       - name: Fazer alterações no README.md
         run: echo "## Atualização automática:" >> README.md
 
-      - name: Commit e Push
+      - name: Configurar git
         run: |
-          git config --global user.name "felipemacedo1"
-          git config --global user.email "felipealexandrej@gmail.com"
+          git config user.name "felipemacedo1"
+          git config user.email "felipealexandrej@gmail.com"
+
+      - name: Commit e Push
+        env:
+          PAT_TOKEN: ${{ secrets.WORK_TOKEN }}
+        run: |
           git add README.md
           git commit -m "Atualização automática no README.md"
-          git push origin HEAD:main
-        env:
-          WORK_TOKEN: ${{ secrets.WORK_TOKEN }}
+          git push https://$PAT_TOKEN@github.com/BliShem/CryptoTool.git HEAD:main
