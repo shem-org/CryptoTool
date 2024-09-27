@@ -1,32 +1,31 @@
-name: Commit automático simples
+name: Automated Maintenance Task
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
-    # - cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
+    # - cron: '0 0 * * *' # Runs daily at midnight UTC
 
 jobs:
-  commit:
+  maintenance:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
+      - name: Repository maintenance check
         uses: actions/checkout@v3
 
-      - name: Fazer alterações no README.md com a data atual
+      - name: Apply necessary updates
         run: |
-          echo "## Atualização automática em: $(date '+%Y-%m-%d %H:%M:%S')" >> README.md
+          echo "## Maintenance update on: $(date '+%Y-%m-%d %H:%M:%S')" >> README.md
 
-
-      - name: Configurar git
+      - name: Configure git settings
         run: |
           git config user.name "felipemacedo1"
           git config user.email "felipealexandrej@gmail.com"
 
-      - name: Commit e Push
+      - name: Commit and Push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add README.md
-          git commit -m "Atualização automática no README.md"
+          git commit -m "Automated maintenance update"
           git push https://$GITHUB_TOKEN@github.com/BliShem/CryptoTool.git main
