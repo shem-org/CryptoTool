@@ -13,8 +13,10 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v3
 
-      - name: Fazer alterações no README.md
-        run: echo "## Atualização automática:" >> README.md
+      - name: Fazer alterações no README.md com a data atual
+        run: |
+          echo "## Atualização automática em: $(date '+%Y-%m-%d %H:%M:%S')" >> README.md
+
 
       - name: Configurar git
         run: |
