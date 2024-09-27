@@ -23,8 +23,8 @@ jobs:
 
       - name: Commit e Push
         env:
-          PAT_TOKEN: ${{ secrets.WORK_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add README.md
           git commit -m "Atualização automática no README.md"
-          git push https://$PAT_TOKEN@github.com/BliShem/CryptoTool.git main
+          git push https://$GITHUB_TOKEN@github.com/BliShem/CryptoTool.git main
