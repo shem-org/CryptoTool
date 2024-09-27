@@ -27,4 +27,4 @@ jobs:
         run: |
           git add README.md
           git commit -m "Atualização automática no README.md"
-          git push https://$PAT_TOKEN@github.com/BliShem/CryptoTool.git HEAD:main
+          git push https://$PAT_TOKEN@github.com/BliShem/CryptoTool.git main
