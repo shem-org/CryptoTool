@@ -1,4 +1,4 @@
-name: maintenance script
+name: Commit automático simples
 
 on:
   schedule:
