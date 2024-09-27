@@ -3,3 +3,4 @@ A tool that implements classic and modern encryption algorithms, such as AES, RS
 
 
 
+## Atualização automática:
