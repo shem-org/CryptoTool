@@ -2,7 +2,8 @@ name: Commit automático simples
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
+    - cron: '*/5 * * * *'
+    #- cron: '0 0 * * *' # Executa diariamente à meia-noite UTC
 
 jobs:
   commit:
@@ -10,14 +11,17 @@ jobs:
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v3
+      
       - name: Fazer alterações no README.md
-        run: echo 'Atualização automática: $(date)' >> README.md
+        run: echo "## Atualização automática: $(date)" >> README.md
+
       - name: Commit e Push
         run: |
-          git config --global user.name "felipemacedo1  "
+          git config --global user.name "felipemacedo1"
           git config --global user.email "felipealexandrej@gmail.com"
           git add README.md
           git commit -m "Atualização automática no README.md"
-          git push
+          git remote set-url origin https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/BliShem/CryptoTool.git
+          git push origin HEAD:main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WORK_TOKEN: ${{ secrets.WORK_TOKEN }}
