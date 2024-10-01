@@ -18,3 +18,4 @@ CryptoTool is an educational cryptography tool built in Golang. The project aims
 ## Usage
 
 To use CryptoTool as a library in your Go projects, import the necessary packages and call the encryption or decryption functions.
+## Maintenance update on: 2024-10-01 01:15:10
