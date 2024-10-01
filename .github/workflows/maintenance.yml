@@ -3,12 +3,13 @@ name: Automated Maintenance Task
 on:
   workflow_dispatch:
   schedule:
-  #  - cron: '*/5 * * * *'
-   - cron: '0 0 * * *' # Runs daily at midnight UTC
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
+    #  - cron: '*/5 * * * *' # Runs every 5 minutes for testing purposes
 
 jobs:
   maintenance:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/maintenance' # Verifica se está na branch 'maintenance'
     steps:
       - name: Repository maintenance check
         uses: actions/checkout@v3
@@ -28,4 +29,4 @@ jobs:
         run: |
           git add README.md
           git commit -m "Automated maintenance update"
-          git push https://$GITHUB_TOKEN@github.com/BliShem/CryptoTool.git main
+          git push https://$GITHUB_TOKEN@github.com/BliShem/CryptoTool.git maintenance
