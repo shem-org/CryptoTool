@@ -9,7 +9,7 @@ on:
 jobs:
   maintenance:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/maintenance' # Verifica se está na branch 'maintenance'
+    if: github.ref == 'refs/heads/maintenance'
     steps:
       - name: Repository maintenance check
         uses: actions/checkout@v3
