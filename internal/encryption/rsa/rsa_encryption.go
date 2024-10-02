@@ -5,48 +5,52 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"errors"
+	"fmt"
 )
 
-type RSACrypto struct {
-	privateKey *rsa.PrivateKey
-	publicKey  *rsa.PublicKey
-}
+type RSACrypto struct{}
 
-// GenerateKeys generates a new pair of RSA keys (public and private).
-func (r *RSACrypto) GenerateKeys(bits int) error {
-	privKey, err := rsa.GenerateKey(rand.Reader, bits)
-	if err != nil {
-		return err
-	}
-	r.privateKey = privKey
-	r.publicKey = &privKey.PublicKey
-	return nil
-}
-
-// Encrypt encrypts the given plaintext using RSA with the public key.
-func (r *RSACrypto) Encrypt(plaintext []byte, key []byte) ([]byte, error) {
-	if r.publicKey == nil {
-		return nil, errors.New("public key is not set")
+// Encrypt encrypts the given plaintext using the provided RSA public key.
+func (r *RSACrypto) Encrypt(plaintext []byte, key interface{}) ([]byte, error) {
+	pubKey, ok := key.(*rsa.PublicKey) // Type assertion
+	if !ok {
+		return nil, errors.New("invalid public key type for RSA")
 	}
 
-	ciphertext, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, r.publicKey, plaintext, nil)
+	ciphertext, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, pubKey, plaintext, nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("encryption failed: %v", err)
 	}
 
 	return ciphertext, nil
 }
 
-// Decrypt decrypts the given ciphertext using RSA with the private key.
-func (r *RSACrypto) Decrypt(ciphertext []byte, key []byte) ([]byte, error) {
-	if r.privateKey == nil {
-		return nil, errors.New("private key is not set")
+// Decrypt decrypts the given ciphertext using the provided RSA private key.
+func (r *RSACrypto) Decrypt(ciphertext []byte, key interface{}) ([]byte, error) {
+	privKey, ok := key.(*rsa.PrivateKey) // Type assertion
+	if !ok {
+		return nil, errors.New("invalid private key type for RSA")
 	}
 
-	plaintext, err := rsa.DecryptOAEP(sha256.New(), rand.Reader, r.privateKey, ciphertext, nil)
+	plaintext, err := rsa.DecryptOAEP(sha256.New(), rand.Reader, privKey, ciphertext, nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("decryption failed: %v", err)
 	}
 
 	return plaintext, nil
+}
+
+// GenerateRSAKeys generates a new pair of RSA keys (public and private).
+func GenerateRSAKeys(bits int) (*rsa.PrivateKey, *rsa.PublicKey, error) {
+	if bits < 2048 {
+		return nil, nil, errors.New("key size is too small; must be at least 2048 bits")
+	}
+
+	privKey, err := rsa.GenerateKey(rand.Reader, bits)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	pubKey := &privKey.PublicKey
+	return privKey, pubKey, nil
 }

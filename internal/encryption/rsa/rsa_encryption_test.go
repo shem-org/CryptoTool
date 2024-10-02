@@ -6,33 +6,26 @@ import (
 )
 
 func TestRSACrypto(t *testing.T) {
-	// Subteste para geração de chaves
-	t.Run("GenerateKeys", func(t *testing.T) {
-		crypto := &RSACrypto{}
-		err := crypto.GenerateKeys(2048)
-		if err != nil {
-			t.Fatalf("Failed to generate RSA keys: %v", err)
-		}
-		if crypto.privateKey == nil || crypto.publicKey == nil {
-			t.Fatalf("Keys should not be nil after generation")
-		}
-	})
+	// Generate RSA keys
+	privKey, pubKey, err := GenerateRSAKeys(2048)
+	if err != nil {
+		t.Fatalf("Failed to generate RSA keys: %v", err)
+	}
 
-	// Subteste para criptografia e descriptografia bem-sucedidas
+	crypto := &RSACrypto{}
+
+	// Subtest: Successful encryption and decryption
 	t.Run("EncryptDecryptSuccess", func(t *testing.T) {
-		crypto := &RSACrypto{}
-		err := crypto.GenerateKeys(2048)
-		if err != nil {
-			t.Fatalf("Failed to generate RSA keys: %v", err)
-		}
-
 		plaintext := []byte("Hello, RSA encryption!")
-		ciphertext, err := crypto.Encrypt(plaintext, nil)
+
+		// Encrypt
+		ciphertext, err := crypto.Encrypt(plaintext, pubKey)
 		if err != nil {
 			t.Fatalf("Failed to encrypt: %v", err)
 		}
 
-		decrypted, err := crypto.Decrypt(ciphertext, nil)
+		// Decrypt
+		decrypted, err := crypto.Decrypt(ciphertext, privKey)
 		if err != nil {
 			t.Fatalf("Failed to decrypt: %v", err)
 		}
@@ -42,47 +35,97 @@ func TestRSACrypto(t *testing.T) {
 		}
 	})
 
-	// Subteste para falha de descriptografia (sem chave privada)
-	t.Run("DecryptWithoutPrivateKey", func(t *testing.T) {
-		crypto := &RSACrypto{}
-		err := crypto.GenerateKeys(2048)
-		if err != nil {
-			t.Fatalf("Failed to generate RSA keys: %v", err)
+	// Subtest: Fails with invalid public key
+	t.Run("InvalidPublicKey", func(t *testing.T) {
+		plaintext := []byte("This should fail")
+		invalidPubKey := "invalid public key" // Invalid key type
+
+		_, err := crypto.Encrypt(plaintext, invalidPubKey)
+		if err == nil {
+			t.Fatal("Expected error when using an invalid public key, but got none")
 		}
+	})
 
-		// Criar uma nova instância que não tem a chave privada
-		cryptoNoPrivateKey := &RSACrypto{publicKey: crypto.publicKey}
-
+	// Subtest: Fails to decrypt with invalid private key
+	t.Run("InvalidPrivateKey", func(t *testing.T) {
 		plaintext := []byte("Hello, RSA encryption!")
-		ciphertext, err := crypto.Encrypt(plaintext, nil)
+
+		// Encrypt
+		ciphertext, err := crypto.Encrypt(plaintext, pubKey)
 		if err != nil {
 			t.Fatalf("Failed to encrypt: %v", err)
 		}
 
-		_, err = cryptoNoPrivateKey.Decrypt(ciphertext, nil)
+		invalidPrivKey := "invalid private key" // Invalid key type
+
+		// Attempt to decrypt with invalid private key
+		_, err = crypto.Decrypt(ciphertext, invalidPrivKey)
 		if err == nil {
-			t.Fatal("Expected error when decrypting without private key, but got none")
+			t.Fatal("Expected error when using an invalid private key, but got none")
 		}
 	})
 
-	// Subteste para chaves de diferentes tamanhos
-	t.Run("KeySizeVariations", func(t *testing.T) {
-		keySizes := []int{1024, 2048, 4096}
+	// Subtest: Fails to decrypt with wrong private key
+	t.Run("DecryptWithWrongPrivateKey", func(t *testing.T) {
+		// Generate a new pair of RSA keys for a wrong private key
+		wrongPrivKey, _, err := GenerateRSAKeys(2048)
+		if err != nil {
+			t.Fatalf("Failed to generate wrong RSA key: %v", err)
+		}
+
+		plaintext := []byte("Hello, RSA encryption!")
+
+		// Encrypt
+		ciphertext, err := crypto.Encrypt(plaintext, pubKey)
+		if err != nil {
+			t.Fatalf("Failed to encrypt: %v", err)
+		}
+
+		// Attempt to decrypt with wrong private key
+		_, err = crypto.Decrypt(ciphertext, wrongPrivKey)
+		if err == nil {
+			t.Fatal("Expected error when decrypting with wrong private key, but got none")
+		}
+	})
+
+	// Subtest: Fails to encrypt empty plaintext
+	t.Run("EncryptEmptyPlaintext", func(t *testing.T) {
+		plaintext := []byte("") // Empty plaintext
+
+		_, err := crypto.Encrypt(plaintext, pubKey)
+		if err != nil {
+			t.Fatal("Expected successful encryption of empty plaintext, but got error")
+		}
+	})
+
+	// Subtest: Fails to decrypt empty ciphertext
+	t.Run("DecryptEmptyCiphertext", func(t *testing.T) {
+		ciphertext := []byte("") // Empty ciphertext
+
+		_, err := crypto.Decrypt(ciphertext, privKey)
+		if err == nil {
+			t.Fatal("Expected error when decrypting empty ciphertext, but got none")
+		}
+	})
+
+	// Subtest: Encryption and decryption with different key sizes (2048, 4096 bits)
+	t.Run("EncryptDecryptDifferentKeySizes", func(t *testing.T) {
+		keySizes := []int{2048, 4096}
+		plaintext := []byte("Testing RSA with different key sizes")
+
 		for _, size := range keySizes {
-			t.Run(fmt.Sprintf("%d", size), func(t *testing.T) {
-				crypto := &RSACrypto{}
-				err := crypto.GenerateKeys(size)
+			t.Run(fmt.Sprintf("%d", size), func(t *testing.T) { // Correção do erro
+				privKey, pubKey, err := GenerateRSAKeys(size)
 				if err != nil {
 					t.Fatalf("Failed to generate RSA keys with size %d: %v", size, err)
 				}
 
-				plaintext := []byte("Test with key size")
-				ciphertext, err := crypto.Encrypt(plaintext, nil)
+				ciphertext, err := crypto.Encrypt(plaintext, pubKey)
 				if err != nil {
 					t.Fatalf("Failed to encrypt with key size %d: %v", size, err)
 				}
 
-				decrypted, err := crypto.Decrypt(ciphertext, nil)
+				decrypted, err := crypto.Decrypt(ciphertext, privKey)
 				if err != nil {
 					t.Fatalf("Failed to decrypt with key size %d: %v", size, err)
 				}

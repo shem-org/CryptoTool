@@ -3,14 +3,20 @@ package aes
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"errors"
 )
 
 // AESCrypto implements the Crypto interface for AES encryption and decryption.
 type AESCrypto struct{}
 
 // Encrypt encrypts the given plaintext using AES with the provided key.
-func (a *AESCrypto) Encrypt(plaintext []byte, key []byte) ([]byte, error) {
-	block, err := aes.NewCipher(key)
+func (a *AESCrypto) Encrypt(plaintext []byte, key interface{}) ([]byte, error) {
+	keyBytes, ok := key.([]byte) // Type assertion
+	if !ok {
+		return nil, errors.New("invalid key type for AES")
+	}
+
+	block, err := aes.NewCipher(keyBytes)
 	if err != nil {
 		return nil, err
 	}
@@ -31,8 +37,18 @@ func (a *AESCrypto) Encrypt(plaintext []byte, key []byte) ([]byte, error) {
 }
 
 // Decrypt decrypts the given ciphertext using AES with the provided key.
-func (a *AESCrypto) Decrypt(ciphertext []byte, key []byte) ([]byte, error) {
-	block, err := aes.NewCipher(key)
+func (a *AESCrypto) Decrypt(ciphertext []byte, key interface{}) ([]byte, error) {
+	keyBytes, ok := key.([]byte)
+	if !ok {
+		return nil, errors.New("invalid key type for AES")
+	}
+
+	// Check if the ciphertext is large enough to contain an IV
+	if len(ciphertext) < aes.BlockSize {
+		return nil, errors.New("ciphertext too short")
+	}
+
+	block, err := aes.NewCipher(keyBytes)
 	if err != nil {
 		return nil, err
 	}
