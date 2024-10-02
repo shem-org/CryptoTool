@@ -3,8 +3,8 @@ name: Automated Maintenance Task
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
-    #  - cron: '*/5 * * * *'  Runs every 5 minutes for testing purposes
+ #   - cron: '0 0 * * *' # Runs daily at midnight UTC
+     - cron: '*/5 * * * *' # Runs every 5 minutes for testing purposes
 
 jobs:
   maintenance:
