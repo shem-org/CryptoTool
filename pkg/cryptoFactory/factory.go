@@ -13,18 +13,19 @@ const (
 	RSA = "RSA"
 )
 
-func GetCrypto(algo string) (interfaces.Crypto, error) {
+func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface{}, error) {
 	switch algo {
 	case AES:
-		return &aes.AESCrypto{}, nil
+		key := make([]byte, 32) // exemple key AES-256
+		return &aes.AESCrypto{}, key, nil, nil
 	case RSA:
-		crypto := &rsa.RSACrypto{}
-		err := crypto.GenerateKeys(2048) // RSA key generator (2048 bits)
+		// Generates and returns the RSA instance, private key and public key
+		privKey, pubKey, err := rsa.GenerateRSAKeys(bits)
 		if err != nil {
-			return nil, err
+			return nil, nil, nil, err
 		}
-		return crypto, nil
+		return &rsa.RSACrypto{}, privKey, pubKey, nil
 	default:
-		return nil, errors.New("unsupported algorithm")
+		return nil, nil, nil, errors.New("unsupported algorithm")
 	}
 }
