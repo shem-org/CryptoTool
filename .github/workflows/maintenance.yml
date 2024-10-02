@@ -3,18 +3,23 @@ name: Automated Maintenance Task
 on:
   workflow_dispatch:
   schedule:
-   - cron: '0 0 * * *' # Runs daily at midnight UTC
- #   - cron: '*/5 * * * *' # Runs every 5 minutes for testing purposes
+    - cron: '*/5 * * * *' # Runs every 5 minutes for testing purposes
 
 jobs:
   maintenance:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/maintenance'
-    steps:
-      - name: Repository maintenance check
-        uses: actions/checkout@v3
 
-      - name: Apply necessary updates
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main  # Garante que o workflow execute na branch main
+
+      - name: Switch to maintenance branch
+        run: |
+          git checkout -b maintenance origin/maintenance || git checkout maintenance
+
+      - name: Repository maintenance check
         run: |
           echo "## Maintenance update on: $(date '+%Y-%m-%d %H:%M:%S')" >> README.md
 
@@ -23,7 +28,7 @@ jobs:
           git config user.name "felipemacedo1"
           git config user.email "felipealexandrej@gmail.com"
 
-      - name: Commit and Push changes
+      - name: Commit and Push changes to maintenance branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
