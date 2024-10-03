@@ -35,4 +35,4 @@ jobs:
         run: |
           git add README.md
           git commit -m "Automated maintenance update"
-          git push https://$GITHUB_TOKEN@github.com/BliShem/CryptoTool.git maintenance
+          git push https://$GITHUB_TOKEN@github.com/shem-org/CryptoTool.git maintenance
