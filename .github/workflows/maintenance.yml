@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
-    #- cron: '*/5 * * * *'  Runs every 5 minutes for testing purposes
 
 jobs:
   maintenance:
@@ -14,7 +13,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v3
         with:
-          ref: main  # Garante que o workflow execute na branch main
+          ref: main
 
       - name: Switch to maintenance branch
         run: |
@@ -26,8 +25,8 @@ jobs:
 
       - name: Configure git settings
         run: |
-          git config user.name "felipemacedo1"
-          git config user.email "felipealexandrej@gmail.com"
+          git config user.name "${{ secrets.GIT_USER_NAME }}"
+          git config user.email "${{ secrets.GIT_USER_EMAIL }}"
 
       - name: Commit and Push changes to maintenance branch
         env:
