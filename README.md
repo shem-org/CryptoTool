@@ -4,7 +4,7 @@ CryptoTool is an educational cryptography tool built in Golang. The project aims
 
 ## Objectives
 
-- Practice and study cryptography by implementing a variety of algorithms.
+- Practice Go and study cryptography by implementing a variety of algorithms.
 - Use the implemented functions as a library (`cryptoLib`) in other Go projects.
 - Support both classical and modern cryptographic techniques.
 
