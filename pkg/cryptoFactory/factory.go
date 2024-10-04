@@ -5,12 +5,14 @@ import (
 
 	"github.com/BliShem/CryptoTool/internal/encryption/aes"
 	"github.com/BliShem/CryptoTool/internal/encryption/rsa"
+	"github.com/BliShem/CryptoTool/internal/hash"
 	"github.com/BliShem/CryptoTool/internal/interfaces"
 )
 
 const (
-	AES = "AES"
-	RSA = "RSA"
+	AES    = "AES"
+	RSA    = "RSA"
+	SHA256 = "SHA256"
 )
 
 func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface{}, error) {
@@ -27,5 +29,14 @@ func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface
 		return &rsa.RSACrypto{}, privKey, pubKey, nil
 	default:
 		return nil, nil, nil, errors.New("unsupported algorithm")
+	}
+}
+
+func GetHashFunction(algo string) (interfaces.Hash, error) {
+	switch algo {
+	case SHA256:
+		return &hash.SHA256Crypto{}, nil
+	default:
+		return nil, errors.New("unsupported hash algorithm")
 	}
 }

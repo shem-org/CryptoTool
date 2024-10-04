@@ -10,10 +10,47 @@ CryptoTool is an educational cryptography tool built in Golang. The project aims
 
 ## Features
 
-- AES encryption and decryption
-- RSA encryption and decryption (future implementation)
-<!-- - Atbash cipher (future implementation) -->
 - Additional algorithms coming soon
+
+## Checklist of Cryptographic Implementations
+
+This checklist tracks the progress of the cryptographic techniques implemented in CryptoTool. You can follow along as we continue to expand the project.
+
+### Symmetric Encryption
+- [x] **AES (Advanced Encryption Standard)**: Implemented
+- [ ] **Blowfish**: Pending
+- [ ] **ChaCha20**: Pending
+- [ ] **DES (Data Encryption Standard)**: Pending
+- [ ] **3DES (Triple DES)**: Pending
+
+### Asymmetric Encryption
+- [X] **RSA (Rivest-Shamir-Adleman)**: Pending
+- [ ] **ECC (Elliptic Curve Cryptography)**: Pending
+- [ ] **ElGamal**: Pending
+
+### Hashing Algorithms
+- [ ] **SHA-256 (Secure Hash Algorithm 256)**: Pending
+- [ ] **SHA-3**: Pending
+- [ ] **MD5**: Pending
+- [ ] **RIPEMD-160**: Pending
+
+### Digital Signatures
+- [ ] **DSA (Digital Signature Algorithm)**: Pending
+- [ ] **ECDSA (Elliptic Curve Digital Signature Algorithm)**: Pending
+- [ ] **RSA Digital Signatures**: Pending
+
+### Stream Ciphers
+- [ ] **RC4 (Rivest Cipher 4)**: Pending
+- [ ] **Salsa20**: Pending
+
+### Message Authentication Codes (MAC)
+- [ ] **HMAC (Hash-based Message Authentication Code)**: Pending
+- [ ] **CMAC (Cipher-based Message Authentication Code)**: Pending
+
+### Key Derivation Functions
+- [ ] **PBKDF2 (Password-Based Key Derivation Function 2)**: Pending
+- [ ] **bcrypt**: Pending
+- [ ] **scrypt**: Pending
 
 ## Usage
 
