@@ -5,7 +5,7 @@ import (
 
 	"github.com/shem-org/CryptoTool/internal/encryption/aes"
 	"github.com/shem-org/CryptoTool/internal/encryption/rsa"
-	"github.com/shem-org/CryptoTool/internal/hash"
+	hash "github.com/shem-org/CryptoTool/internal/hash/sha256"
 	"github.com/shem-org/CryptoTool/internal/interfaces"
 )
 
