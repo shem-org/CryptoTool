@@ -3,10 +3,10 @@ package cryptoFactory
 import (
 	"errors"
 
-	"github.com/BliShem/CryptoTool/internal/encryption/aes"
-	"github.com/BliShem/CryptoTool/internal/encryption/rsa"
-	"github.com/BliShem/CryptoTool/internal/hash"
-	"github.com/BliShem/CryptoTool/internal/interfaces"
+	"github.com/shem-org/CryptoTool/internal/encryption/aes"
+	"github.com/shem-org/CryptoTool/internal/encryption/rsa"
+	"github.com/shem-org/CryptoTool/internal/hash"
+	"github.com/shem-org/CryptoTool/internal/interfaces"
 )
 
 const (
