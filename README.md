@@ -24,12 +24,12 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 - [ ] **3DES (Triple DES)**: Pending
 
 ### Asymmetric Encryption
-- [X] **RSA (Rivest-Shamir-Adleman)**: Pending
+- [X] **RSA (Rivest-Shamir-Adleman)**: Implemented
 - [ ] **ECC (Elliptic Curve Cryptography)**: Pending
 - [ ] **ElGamal**: Pending
 
 ### Hashing Algorithms
-- [ ] **SHA-256 (Secure Hash Algorithm 256)**: Pending
+- [ ] **SHA-256 (Secure Hash Algorithm 256)**: In Progress
 - [ ] **SHA-3**: Pending
 - [ ] **MD5**: Pending
 - [ ] **RIPEMD-160**: Pending
