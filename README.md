@@ -4,7 +4,7 @@ CryptoTool is an educational cryptography tool built in Golang. The project aims
 
 ## Objectives
 
-- Practice and study cryptography by implementing a variety of algorithms.
+- Practice Go and study cryptography by implementing a variety of algorithms.
 - Use the implemented functions as a library (`cryptoLib`) in other Go projects.
 - Support both classical and modern cryptographic techniques.
 
@@ -17,37 +17,44 @@ CryptoTool is an educational cryptography tool built in Golang. The project aims
 This checklist tracks the progress of the cryptographic techniques implemented in CryptoTool. You can follow along as we continue to expand the project.
 
 ### Symmetric Encryption
+
 - [x] **AES (Advanced Encryption Standard)**: Implemented
 - [ ] **Blowfish**: Pending
 - [ ] **ChaCha20**: Pending
 - [ ] **DES (Data Encryption Standard)**: Pending
-- [ ] **3DES (Triple DES)**: Pending
+- [x] **3DES (Triple DES)**: Pending
 
 ### Asymmetric Encryption
-- [X] **RSA (Rivest-Shamir-Adleman)**: Pending
+
+- [X] **RSA (Rivest-Shamir-Adleman)**: Implemented
 - [ ] **ECC (Elliptic Curve Cryptography)**: Pending
 - [ ] **ElGamal**: Pending
 
 ### Hashing Algorithms
-- [ ] **SHA-256 (Secure Hash Algorithm 256)**: Pending
+
+- [X] **SHA-256 (Secure Hash Algorithm 256)**: Implemented
 - [ ] **SHA-3**: Pending
 - [ ] **MD5**: Pending
 - [ ] **RIPEMD-160**: Pending
 
 ### Digital Signatures
+
 - [ ] **DSA (Digital Signature Algorithm)**: Pending
 - [ ] **ECDSA (Elliptic Curve Digital Signature Algorithm)**: Pending
 - [ ] **RSA Digital Signatures**: Pending
 
 ### Stream Ciphers
+
 - [ ] **RC4 (Rivest Cipher 4)**: Pending
 - [ ] **Salsa20**: Pending
 
 ### Message Authentication Codes (MAC)
+
 - [ ] **HMAC (Hash-based Message Authentication Code)**: Pending
 - [ ] **CMAC (Cipher-based Message Authentication Code)**: Pending
 
 ### Key Derivation Functions
+
 - [ ] **PBKDF2 (Password-Based Key Derivation Function 2)**: Pending
 - [ ] **bcrypt**: Pending
 - [ ] **scrypt**: Pending
