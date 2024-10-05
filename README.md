@@ -4,7 +4,7 @@ CryptoTool is an educational cryptography tool built in Golang. The project aims
 
 ## Objectives
 
-- Practice and study cryptography by implementing a variety of algorithms.
+- Practice Go and study cryptography by implementing a variety of algorithms.
 - Use the implemented functions as a library (`cryptoLib`) in other Go projects.
 - Support both classical and modern cryptographic techniques.
 
@@ -24,12 +24,12 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 - [ ] **3DES (Triple DES)**: Pending
 
 ### Asymmetric Encryption
-- [X] **RSA (Rivest-Shamir-Adleman)**: Pending
+- [X] **RSA (Rivest-Shamir-Adleman)**: Implemented
 - [ ] **ECC (Elliptic Curve Cryptography)**: Pending
 - [ ] **ElGamal**: Pending
 
 ### Hashing Algorithms
-- [ ] **SHA-256 (Secure Hash Algorithm 256)**: Pending
+- [ ] **SHA-256 (Secure Hash Algorithm 256)**: In Progress
 - [ ] **SHA-3**: Pending
 - [ ] **MD5**: Pending
 - [ ] **RIPEMD-160**: Pending
