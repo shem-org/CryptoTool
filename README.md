@@ -22,7 +22,7 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 - [ ] **Blowfish**: Pending
 - [ ] **ChaCha20**: Pending
 - [ ] **DES (Data Encryption Standard)**: Pending
-- [ ] **3DES (Triple DES)**: Pending
+- [x] **3DES (Triple DES)**: Pending
 
 ### Asymmetric Encryption
 
