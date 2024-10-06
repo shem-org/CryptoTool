@@ -69,8 +69,16 @@ func (d *DESCrypto) Decrypt(ciphertext []byte, key interface{}) ([]byte, error) 
 	mode := cipher.NewCBCDecrypter(block, desKey[:8])
 	mode.CryptBlocks(plaintext, ciphertext)
 
+	// Verify that the decrypted plaintext has valid padding
+	if len(plaintext) == 0 || len(plaintext)%block.BlockSize() != 0 {
+		return nil, errors.New("decryption failed, invalid padding")
+	}
+
 	// Remove padding from decrypted text
-	plaintext = pkcs5UnPadding(plaintext)
+	plaintext, err = pkcs5UnPaddingSafe(plaintext)
+	if err != nil {
+		return nil, err
+	}
 
 	return plaintext, nil
 }
@@ -95,4 +103,18 @@ func pkcs5UnPadding(src []byte) []byte {
 	length := len(src)
 	unpadding := int(src[length-1])
 	return src[:(length - unpadding)]
+}
+
+func pkcs5UnPaddingSafe(src []byte) ([]byte, error) {
+	length := len(src)
+	if length == 0 {
+		return nil, errors.New("invalid padding")
+	}
+	unpadding := int(src[length-1])
+
+	if unpadding > length || unpadding == 0 {
+		return nil, errors.New("invalid padding size")
+	}
+
+	return src[:(length - unpadding)], nil
 }
