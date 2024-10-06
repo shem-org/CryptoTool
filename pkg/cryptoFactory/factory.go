@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/shem-org/CryptoTool/internal/encryption/aes"
+	"github.com/shem-org/CryptoTool/internal/encryption/des"
 	"github.com/shem-org/CryptoTool/internal/encryption/rsa"
 	"github.com/shem-org/CryptoTool/internal/encryption/triple_des"
 	hash "github.com/shem-org/CryptoTool/internal/hash/sha256"
@@ -15,6 +16,7 @@ const (
 	RSA       = "RSA"
 	SHA256    = "SHA256"
 	TripleDES = "3DES"
+	DES       = "DES"
 )
 
 func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface{}, error) {
@@ -32,6 +34,9 @@ func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface
 	case TripleDES:
 		key := make([]byte, 24) // Example key for 3DES (24 bytes)
 		return &triple_des.TripleDESCrypto{}, key, nil, nil
+	case DES:
+		key := make([]byte, 8) // Example key for DES (8 bytes)
+		return &des.DESCrypto{}, key, nil, nil
 	default:
 		return nil, nil, nil, errors.New("unsupported algorithm")
 	}
