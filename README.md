@@ -20,8 +20,8 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 
 - [x] **AES (Advanced Encryption Standard)**: done
 - [ ] **Blowfish**: Pending
-- [ ] **ChaCha20**: Pending
-- [X] **DES (Data Encryption Standard)**: Done
+- [x] **ChaCha20**: Pending
+- [x] **DES (Data Encryption Standard)**: Done
 - [x] **3DES (Triple DES)**: Done
 
 ### Asymmetric Encryption
