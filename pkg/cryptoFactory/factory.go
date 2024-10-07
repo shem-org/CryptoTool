@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/shem-org/CryptoTool/internal/encryption/aes"
+	"github.com/shem-org/CryptoTool/internal/encryption/blowfish"
 	"github.com/shem-org/CryptoTool/internal/encryption/chacha20"
 	"github.com/shem-org/CryptoTool/internal/encryption/des"
 	"github.com/shem-org/CryptoTool/internal/encryption/rsa"
@@ -23,6 +24,7 @@ const (
 	TripleDES = "3DES"
 	DES       = "DES"
 	ChaCha20  = "ChaCha20"
+	Blowfish  = "Blowfish"
 )
 
 func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface{}, error) {
@@ -45,6 +47,9 @@ func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface
 	case ChaCha20:
 		key := make([]byte, 32) // Key size for ChaCha20 is 256 bits (32 bytes)
 		return &chacha20.ChaCha20Crypto{}, key, nil, nil
+	case Blowfish:
+		key := make([]byte, 16) // Example key size for Blowfish
+		return &blowfish.BlowfishCrypto{}, key, nil, nil
 	default:
 		return nil, nil, nil, errors.New("unsupported algorithm")
 	}
