@@ -1,11 +1,12 @@
 package chacha20
 
 import (
-	"crypto/chacha20poly1305"
 	"crypto/rand"
 	"errors"
 	"fmt"
 	"io"
+
+	"golang.org/x/crypto/chacha20poly1305"
 
 	"github.com/shem-org/CryptoTool/internal/interfaces"
 )
