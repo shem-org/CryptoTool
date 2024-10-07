@@ -18,21 +18,21 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 
 ### Symmetric Encryption
 
-- [x] **AES (Advanced Encryption Standard)**: Implemented
+- [x] **AES (Advanced Encryption Standard)**: done
 - [ ] **Blowfish**: Pending
 - [ ] **ChaCha20**: Pending
-- [ ] **DES (Data Encryption Standard)**: Pending
-- [x] **3DES (Triple DES)**: Pending
+- [X] **DES (Data Encryption Standard)**: Done
+- [x] **3DES (Triple DES)**: Done
 
 ### Asymmetric Encryption
 
-- [X] **RSA (Rivest-Shamir-Adleman)**: Implemented
+- [X] **RSA (Rivest-Shamir-Adleman)**: Done
 - [ ] **ECC (Elliptic Curve Cryptography)**: Pending
 - [ ] **ElGamal**: Pending
 
 ### Hashing Algorithms
 
-- [X] **SHA-256 (Secure Hash Algorithm 256)**: Implemented
+- [X] **SHA-256 (Secure Hash Algorithm 256)**: Done
 - [ ] **SHA-3**: Pending
 - [ ] **MD5**: Pending
 - [ ] **RIPEMD-160**: Pending

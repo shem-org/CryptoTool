@@ -4,6 +4,8 @@ import (
 	"errors"
 
 	"github.com/shem-org/CryptoTool/internal/encryption/aes"
+	"github.com/shem-org/CryptoTool/internal/encryption/chacha20"
+	"github.com/shem-org/CryptoTool/internal/encryption/des"
 	"github.com/shem-org/CryptoTool/internal/encryption/rsa"
 	"github.com/shem-org/CryptoTool/internal/encryption/triple_des"
 	hash "github.com/shem-org/CryptoTool/internal/hash/sha256"
@@ -15,6 +17,8 @@ const (
 	RSA       = "RSA"
 	SHA256    = "SHA256"
 	TripleDES = "3DES"
+	DES       = "DES"
+	ChaCha20  = "ChaCha20"
 )
 
 func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface{}, error) {
@@ -23,7 +27,6 @@ func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface
 		key := make([]byte, 32) // Example key for AES-256
 		return &aes.AESCrypto{}, key, nil, nil
 	case RSA:
-		// Generate and return RSA keys (private and public)
 		privKey, pubKey, err := rsa.GenerateRSAKeys(bits)
 		if err != nil {
 			return nil, nil, nil, err
@@ -32,6 +35,12 @@ func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface
 	case TripleDES:
 		key := make([]byte, 24) // Example key for 3DES (24 bytes)
 		return &triple_des.TripleDESCrypto{}, key, nil, nil
+	case DES:
+		key := make([]byte, 8) // Example key for DES (8 bytes)
+		return &des.DESCrypto{}, key, nil, nil
+	case ChaCha20:
+		key := make([]byte, 32) // Key size for ChaCha20 is 256 bits (32 bytes)
+		return &chacha20.ChaCha20Crypto{}, key, nil, nil
 	default:
 		return nil, nil, nil, errors.New("unsupported algorithm")
 	}
