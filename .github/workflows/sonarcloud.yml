@@ -1,0 +1,59 @@
+name: SonarCloud analysis
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  pull-requests: read # permite que o SonarCloud adicione resultados da análise aos PRs
+
+jobs:
+  Analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Fazer checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 2. Configurar o Go
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.17'  # Defina a versão do Go que você está usando
+
+      # 3. Executar testes e gerar o relatório de cobertura
+      - name: Run tests and generate coverage
+        run: |
+          go test -coverprofile=coverage.out ./...
+          ls -l coverage.out  # Lista o arquivo de cobertura para garantir que foi gerado
+
+      # 4. Upload do arquivo de cobertura como artefato para depuração
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: coverage.out
+
+      # 5. Executar análise do SonarCloud
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1.4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_SHEM }}  # O token configurado nos segredos do GitHub
+        with:
+          args: >
+            -Dsonar.projectKey=shem-org_CryptoTool
+            -Dsonar.organization=shem-org
+            -Dsonar.go.coverage.reportPaths=coverage.out  # Configura o caminho do relatório de cobertura
+            -Dsonar.verbose=true  # Ativa o modo verbose para obter mais detalhes nos logs
+
+      # 6. Baixar logs detalhados para inspeção (opcional, útil para depuração)
+      - name: Download SonarCloud Logs
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: sonarcloud-logs
+          path: .scannerwork
