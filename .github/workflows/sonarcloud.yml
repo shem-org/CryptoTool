@@ -23,7 +23,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: '1.17'  # Defina a versão do Go que você está usando
+          go-version: '1.23'
 
       # 3. Executar testes e gerar o relatório de cobertura
       - name: Run tests and generate coverage
