@@ -54,7 +54,7 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 
 ### Message Authentication Codes (MAC)
 
-- [ ] **HMAC (Hash-based Message Authentication Code)**: Pending
+- [x] **HMAC (Hash-based Message Authentication Code)**: Done
 - [ ] **CMAC (Cipher-based Message Authentication Code)**: Pending
 
 ### Key Derivation Functions
