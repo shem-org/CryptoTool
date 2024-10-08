@@ -1,3 +1,7 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=shem-org_CryptoTool&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=shem-org_CryptoTool)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=shem-org_CryptoTool&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=shem-org_CryptoTool)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=shem-org_CryptoTool&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=shem-org_CryptoTool)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=shem-org_CryptoTool&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=shem-org_CryptoTool)
 # CryptoTool
 
 CryptoTool is an educational cryptography tool built in Golang. The project aims to implement both classic and modern encryption algorithms, such as AES, RSA, and others, to facilitate learning and understanding how these techniques work. Additionally, it is designed to be used as a library in future Go projects, providing functionalities for encrypting and decrypting data.
