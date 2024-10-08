@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  pull-requests: read # permite que o SonarCloud adicione resultados da análise aos PRs
+  pull-requests: read  # Permite que o SonarCloud adicione resultados da análise aos PRs
 
 jobs:
   Analysis:
@@ -19,26 +19,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Configurar o Go
-      - name: Set up Go
+      # 2. Verificar a versão Go instalada
+      - name: Check Go version
+        run: go version  # Verifica a versão Go no runner
+
+      # 3. Configurar o Go com a versão 1.22.5
+      - name: Set up Go 1.22.5
         uses: actions/setup-go@v4
         with:
-          go-version: '1.23'
+          go-version: '1.22.5'
+          check-latest: true  # Força a instalação da versão mais recente 1.22.5
 
-      # 3. Executar testes e gerar o relatório de cobertura
+      # 4. Executar testes e gerar o relatório de cobertura
       - name: Run tests and generate coverage
         run: |
           go test -coverprofile=coverage.out ./...
           ls -l coverage.out  # Lista o arquivo de cobertura para garantir que foi gerado
 
-      # 4. Upload do arquivo de cobertura como artefato para depuração
+      # 5. Upload do arquivo de cobertura como artefato para depuração
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
           path: coverage.out
 
-      # 5. Executar análise do SonarCloud (usando a versão mais recente)
+      # 6. Executar análise do SonarCloud
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1.5
         env:
@@ -47,10 +52,10 @@ jobs:
           args: >
             -Dsonar.projectKey=shem-org_CryptoTool
             -Dsonar.organization=shem-org
-            -Dsonar.go.coverage.reportPaths=coverage.out  # Configura o caminho do relatório de cobertura
-            -Dsonar.verbose=true  # Ativa o modo verbose para obter mais detalhes nos logs
+            -Dsonar.go.coverage.reportPaths=coverage.out
+            -Dsonar.verbose=true
 
-      # 6. Baixar logs detalhados para inspeção (opcional, útil para depuração)
+      # 7. Baixar logs detalhados para inspeção (opcional)
       - name: Download SonarCloud Logs
         if: always()
         uses: actions/upload-artifact@v3
