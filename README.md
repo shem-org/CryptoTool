@@ -31,7 +31,7 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 ### Asymmetric Encryption
 
 - [X] **RSA (Rivest-Shamir-Adleman)**: Done
-- [ ] **ECC (Elliptic Curve Cryptography)**: Pending
+- [X] **ECC (Elliptic Curve Cryptography)**: Done
 - [ ] **ElGamal**: Pending
 
 ### Hashing Algorithms
@@ -44,7 +44,7 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 ### Digital Signatures
 
 - [ ] **DSA (Digital Signature Algorithm)**: Pending
-- [ ] **ECDSA (Elliptic Curve Digital Signature Algorithm)**: Pending
+- [X] **ECDSA (Elliptic Curve Digital Signature Algorithm)**: Done
 - [ ] **RSA Digital Signatures**: Pending
 
 ### Stream Ciphers
