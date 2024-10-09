@@ -10,3 +10,9 @@ type Crypto interface {
 type Hash interface {
 	Hash(data []byte) (string, error)
 }
+
+// HMAC defines the operations that all HMAC algorithms should implement.
+type HMAC interface {
+	GenerateHMAC(data, key []byte) ([]byte, error)
+	VerifyHMAC(data, key, hmacValue []byte) (bool, error)
+}

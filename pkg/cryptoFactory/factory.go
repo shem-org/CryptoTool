@@ -9,18 +9,23 @@ import (
 	"github.com/shem-org/CryptoTool/internal/encryption/des"
 	"github.com/shem-org/CryptoTool/internal/encryption/rsa"
 	"github.com/shem-org/CryptoTool/internal/encryption/triple_des"
+	"github.com/shem-org/CryptoTool/internal/hash/hmac"
 	hash "github.com/shem-org/CryptoTool/internal/hash/sha256"
+
 	"github.com/shem-org/CryptoTool/internal/interfaces"
 )
 
 const (
-	AES       = "AES"
-	RSA       = "RSA"
-	SHA256    = "SHA256"
-	TripleDES = "3DES"
-	DES       = "DES"
-	ChaCha20  = "ChaCha20"
-	Blowfish  = "Blowfish"
+	AES        = "AES"
+	RSA        = "RSA"
+	SHA256     = "SHA256"
+	SHA3       = "SHA3-256"
+	TripleDES  = "3DES"
+	DES        = "DES"
+	ChaCha20   = "ChaCha20"
+	Blowfish   = "Blowfish"
+	HMACSHA256 = "HMAC-SHA256"
+	HMACSHA3   = "HMAC-SHA3-256"
 )
 
 func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface{}, error) {
@@ -57,5 +62,17 @@ func GetHashFunction(algo string) (interfaces.Hash, error) {
 		return &hash.SHA256Crypto{}, nil
 	default:
 		return nil, errors.New("unsupported hash algorithm")
+	}
+}
+
+// New function for HMAC
+func GetHMACFunction(algo string) (interfaces.HMAC, error) {
+	switch algo {
+	case HMACSHA256:
+		return hmac.NewHMAC("SHA256")
+	case HMACSHA3:
+		return hmac.NewHMAC("SHA3-256")
+	default:
+		return nil, errors.New("unsupported HMAC algorithm")
 	}
 }
