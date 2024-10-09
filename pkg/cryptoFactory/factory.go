@@ -10,6 +10,7 @@ import (
 	"github.com/shem-org/CryptoTool/internal/encryption/rsa"
 	"github.com/shem-org/CryptoTool/internal/encryption/triple_des"
 	"github.com/shem-org/CryptoTool/internal/hash/hmac"
+	"github.com/shem-org/CryptoTool/internal/hash/scrypt"
 	hash "github.com/shem-org/CryptoTool/internal/hash/sha256"
 
 	"github.com/shem-org/CryptoTool/internal/interfaces"
@@ -26,6 +27,8 @@ const (
 	Blowfish   = "Blowfish"
 	HMACSHA256 = "HMAC-SHA256"
 	HMACSHA3   = "HMAC-SHA3-256"
+	//Bcrypt = "Bcrypt"
+	Scrypt = "Scrypt"
 )
 
 func GetCrypto(algo string, bits int) (interfaces.Crypto, interface{}, interface{}, error) {
@@ -74,5 +77,16 @@ func GetHMACFunction(algo string) (interfaces.HMAC, error) {
 		return hmac.NewHMAC("SHA3-256")
 	default:
 		return nil, errors.New("unsupported HMAC algorithm")
+	}
+}
+
+func GetPasswordHasher(algo string) (interfaces.PasswordHasher, error) {
+	switch algo {
+	// case Bcrypt:
+	// 	return &bcrypt.BcryptCrypto{}, nil
+	case Scrypt:
+		return &scrypt.ScryptCrypto{}, nil
+	default:
+		return nil, errors.New("unsupported password hashing algorithm")
 	}
 }
