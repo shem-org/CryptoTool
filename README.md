@@ -61,7 +61,7 @@ This checklist tracks the progress of the cryptographic techniques implemented i
 
 - [ ] **PBKDF2 (Password-Based Key Derivation Function 2)**: Pending
 - [ ] **bcrypt**: Pending
-- [ ] **scrypt**: Pending
+- [x] **scrypt**: Done
 
 ## Usage
 
