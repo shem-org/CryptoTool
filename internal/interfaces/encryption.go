@@ -16,3 +16,9 @@ type HMAC interface {
 	GenerateHMAC(data, key []byte) ([]byte, error)
 	VerifyHMAC(data, key, hmacValue []byte) (bool, error)
 }
+
+// PasswordHasher defines the operations for password hashing algorithms like bcrypt and scrypt.
+type PasswordHasher interface {
+	HashPassword(password []byte) ([]byte, error)
+	CompareHashAndPassword(hashedPassword, password []byte) (bool, error)
+}
